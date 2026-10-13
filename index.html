@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capacitaciones Requingua</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --vino:#7B1E3A; --vino2:#9E2A4B; --vino-sua:#F7E9EE; --oro:#B88A1B; --oro-sua:#FBF3DF;
+    --verde:#1E7B4B; --verde-sua:#E5F4EC; --rojo:#C0392B; --rojo-sua:#FDECEA;
+    --txt:#2B2B2B; --gris:#6B6B6B; --borde:#E3E3E3; --fondo:#F1EFEC; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fondo);font-family:Nunito,Arial,sans-serif;color:var(--txt)}
+  .wrap{max-width:820px;margin:24px auto;background:var(--card);border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,.06);overflow:hidden}
+  header{display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid var(--borde)}
+  header .t1{font-weight:800;font-size:15px}
+  header .t2{font-size:13px;color:var(--gris);font-weight:600}
+  nav{display:flex;border-bottom:1px solid var(--borde);padding:0 16px}
+  nav button{flex:1;background:none;border:0;padding:16px 8px;font:700 16px Nunito;color:var(--gris);cursor:pointer;border-bottom:3px solid transparent}
+  nav button.on{color:var(--txt);border-bottom-color:var(--vino)}
+  section{display:none;padding:32px}
+  section.on{display:block}
+  h2{margin:0 0 6px;font-size:24px;font-weight:900}
+  h3{margin:28px 0 10px}
+  .hero{text-align:center}
+  .hero h1{font-size:32px;font-weight:900;margin:14px 0 4px}
+  .hero .curso{font-size:20px;font-weight:800;color:var(--vino);margin-top:10px}
+  .hero p{color:var(--gris);font-size:17px;margin:0 0 18px}
+  .pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+  .pill{padding:8px 14px;border-radius:12px;font-weight:800;font-size:14px}
+  .p1{background:#EEF0F4}.p2{background:var(--oro-sua);color:var(--oro)}.p3{background:var(--vino-sua);color:var(--vino)}
+  label{display:block;font-weight:800;margin:16px 0 8px}
+  input,select,textarea{width:100%;padding:14px 16px;border:1px solid var(--borde);border-radius:10px;font:16px Nunito;color:var(--txt);background:#fff}
+  textarea{resize:vertical;min-height:60px}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--vino-sua);border-color:var(--vino)}
+  input:disabled{background:#F6F6F6;color:var(--gris)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .btn{display:block;width:100%;margin-top:22px;padding:16px;border:0;border-radius:12px;background:var(--vino);color:#fff;font:800 19px Nunito;cursor:pointer;text-align:center;text-decoration:none}
+  .btn:hover{background:var(--vino2)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .btn.sec{background:#fff;color:var(--vino);border:2px solid var(--vino)}
+  .btn.chico{display:inline-block;width:auto;padding:10px 16px;font-size:15px;margin:0}
+  .mini{padding:6px 10px;border-radius:8px;border:1px solid var(--vino);background:#fff;color:var(--vino);font:700 13px Nunito;cursor:pointer;margin:2px}
+  .link{background:none;border:0;color:var(--vino);font:800 15px Nunito;cursor:pointer;padding:0}
+  .err{color:var(--rojo);font-weight:700;margin-top:12px;min-height:20px}
+  .card{display:block;width:100%;text-align:left;border:2px solid var(--borde);border-radius:14px;padding:16px 18px;margin:12px 0;background:#fff;cursor:pointer;font-family:inherit}
+  .card:hover{border-color:var(--vino)}
+  .card b{display:block;font-size:18px;color:var(--txt)}
+  .card span{display:block;color:var(--gris);margin:4px 0 8px;font-size:15px}
+  .card em{font-style:normal;font-size:13px;font-weight:800;color:var(--vino)}
+  .prog{height:8px;background:#EEE;border-radius:8px;overflow:hidden;margin:6px 0 20px}
+  .prog div{height:100%;background:var(--vino);transition:width .3s}
+  .qnum{color:var(--gris);font-weight:700}
+  .qtxt{font-size:21px;font-weight:800;margin:6px 0 18px}
+  .opt{display:block;width:100%;text-align:left;margin:10px 0;padding:15px 18px;border:2px solid var(--borde);border-radius:12px;background:#fff;font:600 16px Nunito;cursor:pointer;color:var(--txt)}
+  .opt:hover{border-color:var(--vino2)}
+  .opt.sel{border-color:var(--vino);background:var(--vino-sua)}
+  .nav2{display:flex;gap:12px}.nav2 .btn{margin-top:14px}
+  .res{text-align:center}
+  .res .big{font-size:64px;font-weight:900;margin:8px 0}
+  .ok{color:var(--verde)}.bad{color:var(--rojo)}
+  .rev{margin-top:20px;text-align:left}
+  .rev div{padding:10px 14px;border-radius:10px;margin:8px 0;font-size:15px}
+  .rev .s{background:var(--verde-sua)}.rev .n{background:var(--rojo-sua)}
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .stat{flex:1;min-width:120px;background:#F7F7F7;border-radius:12px;padding:12px 14px}
+  .stat b{display:block;font-size:24px}
+  .tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+  .tools input,.tools select{width:auto;flex:1;min-width:140px;padding:10px 12px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:9px 8px;border-bottom:1px solid var(--borde);text-align:left;vertical-align:middle}
+  th{background:#FAFAFA;font-weight:800}
+  td input,td select{padding:8px 10px;font-size:14px}
+  .tag{padding:3px 8px;border-radius:8px;font-weight:800;font-size:12px;white-space:nowrap}
+  .tag.A{background:var(--verde-sua);color:var(--verde)}.tag.R{background:var(--rojo-sua);color:var(--rojo)}.tag.G{background:#EEE;color:var(--gris)}
+  .scroll{overflow-x:auto}
+  .userbar{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--vino-sua);padding:10px 14px;border-radius:10px;margin-bottom:18px;font-weight:700;flex-wrap:wrap}
+  .box{border:1px solid var(--borde);border-radius:14px;padding:18px;margin:20px 0}
+  .box h3{margin-top:0}
+  .qrbox{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .qrbox code{display:block;word-break:break-all;font-size:13px;background:#F7F7F7;padding:8px;border-radius:8px;margin:8px 0}
+  .chk{display:flex;align-items:center;gap:10px;font-weight:800;margin-top:18px}
+  .chk input{width:22px;height:22px}
+  .qedit{border:1px solid var(--borde);border-radius:12px;padding:14px;margin:12px 0}
+  .qedit.falta{border-color:var(--rojo);background:var(--rojo-sua)}
+  .qedit .h{display:flex;justify-content:space-between;align-items:center;font-weight:800;gap:8px;flex-wrap:wrap}
+  .qedit .alt{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:center;margin-top:8px}
+  .qedit input,.qedit textarea{padding:10px 12px;font-size:15px}
+  .qedit .alt input[type=radio]{width:20px;height:20px}
+  .x{background:none;border:0;color:var(--rojo);font:700 14px Nunito;cursor:pointer}
+  .muted{color:var(--gris);font-size:14px}
+  pre.ej{background:#F7F7F7;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;margin:8px 0}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 18px;border-radius:10px;display:none;font-weight:700;z-index:9}
+  #print{display:none}
+  /* ----- Certificado / Acta / Afiche ----- */
+  .cert{border:10px double var(--vino);padding:40px 50px;text-align:center;font-family:Nunito,Arial;min-height:640px}
+  .cert h2{font-size:34px;letter-spacing:2px;color:var(--vino);margin:18px 0 4px}
+  .cert .nom{font-size:30px;font-weight:900;border-bottom:2px solid var(--oro);display:inline-block;padding:4px 30px;margin:14px 0}
+  .cert p{font-size:17px;line-height:1.6}
+  .firmas{display:flex;justify-content:space-around;margin-top:70px}
+  .firmas div{border-top:1px solid #333;width:230px;padding-top:6px;font-size:14px;text-align:center}
+  .acta table{font-size:12px}.acta th,.acta td{border:1px solid #999;padding:6px}
+  .acta td.f{width:120px}
+  .afiche{text-align:center;font-family:Arial,sans-serif}
+  .afiche .banda{background:var(--vino);color:#fff;font-size:28px;font-weight:800;padding:16px;margin:24px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .afiche h1{font-size:40px;margin:10px 0}
+  .afiche img.qr{width:60%;margin:20px auto;display:block}
+  .afiche p{font-size:22px;color:#555;margin:8px 0}
+  @media (max-width:600px){
+    .wrap{margin:0;border-radius:0}section{padding:20px 16px}header{padding:12px 16px}
+    nav button{font-size:13px;padding:14px 4px}.hero h1{font-size:26px}.row2{grid-template-columns:1fr}
+    .qtxt{font-size:18px}
+  }
+  @media print{
+    @page{size:letter;margin:14mm}
+    body{background:#fff}
+    .wrap,.toast{display:none!important}
+    #print{display:block}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span id="logoMini"></span>
+    <div><div class="t1" id="hCurso">Capacitaciones</div><div class="t2" id="hSub"></div></div>
+  </header>
+  <nav>
+    <button class="on" data-tab="eval">📝 Evaluación</button>
+    <button data-tab="reg">🗂️ Registro</button>
+    <button data-tab="imp">🖨️ Imprimir</button>
+    <button data-tab="edit">✏️ Editar</button>
+  </nav>
+
+  <!-- ============ EVALUACIÓN ============ -->
+  <section id="eval" class="on">
+    <div id="evLista">
+      <div class="hero"><div id="logoLista"></div></div>
+      <h2>Capacitaciones disponibles</h2>
+      <p class="muted">Elige la capacitación que realizaste para rendir la evaluación.</p>
+      <div id="evCards"><p class="muted">Cargando…</p></div>
+    </div>
+
+    <div id="evInicio" class="hero" style="display:none">
+      <div style="text-align:left"><button class="link" id="bVolverLista">← Otras capacitaciones</button></div>
+      <div id="logoBig"></div>
+      <div class="curso" id="evCurso"></div>
+      <h1>¡Pon a prueba lo aprendido!</h1>
+      <p>Responde <span id="evN">10</span> preguntas rápidas. Necesitas <b><span id="evA">70</span>%</b> para aprobar.</p>
+      <div class="pills" id="evPills"></div>
+      <div style="text-align:left">
+        <label>Nombre y apellido</label>
+        <input id="fNombre" placeholder="Ej: Juan Pérez Soto" autocomplete="name">
+        <label>RUT</label>
+        <input id="fRut" placeholder="Ej: 12.345.678-9">
+        <div class="row2">
+          <div><label>Cargo / Área</label><input id="fCargo" placeholder="Ej: Operador línea 2"></div>
+          <div><label>Empresa</label><input id="fEmpresa"></div>
+        </div>
+        <button class="btn" id="bComenzar">Comenzar evaluación →</button>
+        <div class="err" id="evErr"></div>
+      </div>
+    </div>
+
+    <div id="evPreg" style="display:none">
+      <div class="qnum" id="qNum"></div>
+      <div class="prog"><div id="qBar"></div></div>
+      <div class="qtxt" id="qTxt"></div>
+      <div id="qOpts"></div>
+      <div class="nav2">
+        <button class="btn sec" id="bAtras">← Anterior</button>
+        <button class="btn" id="bSig" disabled>Siguiente →</button>
+      </div>
+    </div>
+
+    <div id="evRes" class="res" style="display:none"></div>
+  </section>
+
+  <!-- ============ REGISTRO ============ -->
+  <section id="reg">
+    <div class="userbar ub"></div>
+    <div class="tools">
+      <select id="rCurso"></select>
+      <select id="rFiltro"><option value="">Todos los resultados</option><option>APROBADO</option><option>REPROBADO</option></select>
+    </div>
+    <div class="stats" id="rStats"></div>
+    <div class="tools">
+      <input id="rBuscar" placeholder="Buscar nombre o RUT…">
+      <button class="btn chico sec" id="rCsv">⬇ CSV</button>
+      <a id="rPlanilla" class="btn chico sec" target="_blank" style="display:none">📊 Planilla</a>
+      <button class="btn chico sec" id="rRefrescar">↻</button>
+    </div>
+    <div class="scroll"><table><thead><tr><th>Fecha</th><th>Capacitación</th><th>Nombre</th><th>RUT</th><th>Cargo / Área</th><th>%</th><th>Resultado</th><th>Int.</th></tr></thead><tbody id="rBody"></tbody></table></div>
+  </section>
+
+  <!-- ============ IMPRIMIR ============ -->
+  <section id="imp">
+    <div class="userbar ub"></div>
+    <label style="margin-top:0">Capacitación</label>
+    <select id="iCurso"></select>
+
+    <h3>🎓 Certificado individual</h3>
+    <label>Persona (solo aprobados)</label>
+    <select id="iPersona"></select>
+    <button class="btn" id="iCert">Imprimir certificado</button>
+
+    <h3 style="margin-top:36px">📋 Acta / Registro de capacitación</h3>
+    <p class="muted">Listado con firma de cada participante, como respaldo de la capacitación.</p>
+    <div class="row2">
+      <div><label>Desde</label><input type="date" id="iDesde"></div>
+      <div><label>Hasta</label><input type="date" id="iHasta"></div>
+    </div>
+    <label>Incluir</label>
+    <select id="iIncluir"><option value="A">Solo aprobados (último intento)</option><option value="T">Todos los intentos</option></select>
+    <button class="btn" id="iActa">Imprimir acta</button>
+  </section>
+
+  <!-- ============ EDITAR ============ -->
+  <section id="edit">
+    <div class="userbar ub"></div>
+
+    <div id="edLista">
+      <h2>Capacitaciones</h2>
+      <p class="muted">Solo las capacitaciones <b>activas</b> aparecen en la página para los trabajadores.</p>
+      <div class="scroll"><table><thead><tr><th>Capacitación</th><th>Área</th><th>Estado</th><th>Preg.</th><th></th></tr></thead><tbody id="edBody"></tbody></table></div>
+      <button class="btn" id="edNuevo">+ Nueva capacitación</button>
+
+      <div id="edAdmin" style="display:none">
+        <div class="box">
+          <h3>👥 Usuarios editores</h3>
+          <p class="muted">Cada persona entra con su PIN y edita las capacitaciones de <b>su área</b>. El administrador ve y edita todo.</p>
+          <div class="scroll"><table><thead><tr><th>Nombre</th><th>Área</th><th>PIN</th><th>Rol</th><th></th></tr></thead><tbody id="uBody"></tbody></table></div>
+          <datalist id="dlAreas"></datalist>
+          <button class="btn chico sec" id="uAgregar" style="margin-top:12px">+ Agregar usuario</button>
+          <button class="btn" id="uGuardar">Guardar usuarios</button>
+        </div>
+        <div class="box">
+          <h3>⚙️ Configuración general</h3>
+          <label>Empresa</label><input id="gEmpresa">
+          <label>Logos (URLs separadas por | )</label><input id="gLogos">
+          <label>Dirección pública de la página (se usa para los links y QR)</label><input id="gPagina">
+          <button class="btn" id="gGuardar">Guardar configuración</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="edCurso" style="display:none">
+      <button class="link" id="edVolver">← Volver a la lista</button>
+      <h2 id="edTitulo" style="margin-top:12px">Nueva capacitación</h2>
+
+      <div class="box" id="edQR" style="display:none">
+        <h3>📱 Link y QR de esta capacitación</h3>
+        <div class="qrbox">
+          <div id="qrDiv"></div>
+          <div style="flex:1;min-width:220px">
+            <code id="qrLink"></code>
+            <button class="mini" id="qrCopiar">Copiar link</button>
+            <button class="mini" id="qrAfiche">🖨️ Imprimir afiche</button>
+            <p class="muted" id="qrAviso"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>⚙️ Datos</h3>
+        <div id="edCampos"></div>
+        <label class="chk"><input type="checkbox" id="edActivo"> Activa (visible para los trabajadores)</label>
+      </div>
+
+      <div class="box">
+        <h3>📋 Cargar preguntas pegando texto</h3>
+        <p class="muted">Copia las preguntas desde Word o un correo y pégalas aquí. Marca la correcta con <b>*</b> al final o agrega una línea <b>Respuesta: b</b>. También sirve copiar filas de Excel (Pregunta · A · B · C · D · Correcta).</p>
+        <pre class="ej">1. ¿Qué EPP es obligatorio en la línea?
+a) Ninguno
+b) Protector auditivo y zapatos de seguridad *
+c) Solo guantes
+
+2. ¿Se puede mezclar cloro con ácido?
+a) Sí
+b) No
+Respuesta: b</pre>
+        <textarea id="edPegar" rows="8" placeholder="Pega aquí las preguntas…"></textarea>
+        <button class="btn sec" id="edImportar">Agregar estas preguntas</button>
+      </div>
+
+      <div class="box">
+        <h3>❓ Banco de preguntas <span class="muted" id="edConteo"></span></h3>
+        <p class="muted">En cada evaluación se eligen al azar las preguntas activas y se mezclan las alternativas. ● = alternativa correcta.</p>
+        <div id="ePregs"></div>
+        <button class="btn sec" id="eAgregar">+ Agregar pregunta</button>
+      </div>
+
+      <button class="btn" id="edGuardar">💾 Guardar capacitación</button>
+    </div>
+  </section>
+</div>
+
+<div id="print"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SS = { get(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } },
+             set(k,v){ try { sessionStorage.setItem(k,v); } catch(e){} }, del(k){ try { sessionStorage.removeItem(k); } catch(e){} } };
+const LOGOS_DEF = 'https://survalles.com/wp-content/themes/survalles/imagenes/requingua.png | https://survalles.com/wp-content/themes/survalles/imagenes/logox2.png';
+let PORT = { cfg:{}, cursos:[] }, CURSO = null, PIN = SS.get('pin') || '', USER = null;
+let REGS = [], RCURSOS = [], ADM = null, ED = null, PREGS = [];
+let QS = [], RESP = {}, IDX = 0, DATOS = {}, ULTIMO = null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// Dentro de Apps Script usa google.script.run; publicada afuera (GitHub, etc.) llama a la API sin cuenta Google
+const API_URL = 'https://script.google.com/macros/s/AKfycbx5Lbz51OEFct100CjYTFpVI31oKOXUyG7FcH10AW3YL07reUdvoKFSyhBJTFAXf2lY/exec';
+const EN_GOOGLE = !!(window.google && google.script && google.script.run);
+const run = (fn, ...args) => EN_GOOGLE
+  ? new Promise((ok, ko) => google.script.run.withSuccessHandler(ok).withFailureHandler(e => ko(e))[fn](...args))
+  : fetch(API_URL, { method:'POST', body:JSON.stringify({fn, args}), headers:{'Content-Type':'text/plain;charset=utf-8'}, credentials:'omit', redirect:'follow' })
+      .then(r => r.json()).then(r => { if (!r.ok) throw new Error(r.error); return r.data; });
+
+function toast(t){ const el=$('toast'); el.textContent=t; el.style.display='block'; setTimeout(()=>el.style.display='none',2800); }
+function getParam(n){
+  return new Promise(ok => {
+    if (EN_GOOGLE && google.script.url) google.script.url.getLocation(l => ok(((l && l.parameter) || {})[n] || ''));
+    else ok(new URLSearchParams(location.search).get(n) || '');
+  });
+}
+function linkCurso(id){
+  const base = PORT.cfg.paginaUrl || location.href.split('?')[0];
+  return base + (base.includes('?') ? '&' : '?') + 'curso=' + encodeURIComponent(id);
+}
+function logo(size){
+  const L = String(PORT.cfg.logoUrl || LOGOS_DEF).split('|').map(u=>u.trim()).filter(Boolean);
+  return '<span style="display:inline-flex;align-items:center;gap:'+Math.round(size/3)+'px">'+
+    L.map(u=>'<img src="'+esc(u)+'" style="height:'+size+'px;width:auto">').join('<span style="width:1px;align-self:stretch;background:#DDD"></span>')+'</span>';
+}
+function qrEn(el, text, size){
+  el.innerHTML = '';
+  if (!window.QRCode) { el.textContent = '(no se pudo cargar el generador de QR)'; return; }
+  new QRCode(el, { text, width:size, height:size, colorDark:'#7B1E3A', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+}
+
+/* ---------- Encabezado ---------- */
+function pintarHeader(){
+  const emp = PORT.cfg.empresa || 'Viña Requingua';
+  $('logoMini').innerHTML = logo(44);
+  $('hCurso').textContent = CURSO ? CURSO.nombre : 'Capacitaciones ' + emp;
+  $('hSub').textContent = CURSO ? [CURSO.codigo, CURSO.horas && (CURSO.horas + ' horas'), emp].filter(Boolean).join(' · ') : 'Evaluación de conocimientos';
+  if (!$('fEmpresa').value) $('fEmpresa').value = emp;
+}
+
+/* ---------- Tabs / login ---------- */
+document.querySelectorAll('nav button').forEach(b => b.onclick = async () => {
+  const tab = b.dataset.tab;
+  if (tab !== 'eval' && !(await asegurarLogin())) return;
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on', x===b));
+  document.querySelectorAll('section').forEach(s=>s.classList.toggle('on', s.id===tab));
+  if (tab==='reg' || tab==='imp') cargarRegistros();
+  if (tab==='edit') cargarAdmin();
+});
+
+async function asegurarLogin(){
+  if (PIN && USER) return true;
+  const p = PIN || prompt('Ingresa tu PIN de editor:');
+  if (!p) return false;
+  try { USER = await run('login', p); PIN = p; SS.set('pin', p); pintarUserbar(); return true; }
+  catch(e){ PIN=''; SS.del('pin'); alert('PIN incorrecto'); return false; }
+}
+function pintarUserbar(){
+  document.querySelectorAll('.ub').forEach(el => {
+    el.innerHTML = '<span>👤 '+esc(USER.nombre)+' · '+esc(USER.area)+(USER.rol==='ADMIN'?' · Administrador':'')+'</span><button class="mini">Salir</button>';
+    el.querySelector('button').onclick = salir;
+  });
+}
+function pintarUserbarVacia(){ document.querySelectorAll('.ub').forEach(el => el.innerHTML = '<span>Sesión cerrada: vuelve a entrar con tu PIN</span>'); }
+function salir(){
+  PIN=''; USER=null; ADM=null; SS.del('pin');
+  document.querySelector('nav button[data-tab="eval"]').click();
+}
+function errAdmin(e){
+  const m = String(e.message||e);
+  if (m === 'PIN incorrecto') { PIN=''; USER=null; SS.del('pin'); pintarUserbarVacia(); }
+  alert(m);
+}
+
+/* ---------- Evaluación ---------- */
+function mostrar(id){ ['evLista','evInicio','evPreg','evRes'].forEach(x=>$(x).style.display = x===id ? 'block' : 'none'); window.scrollTo(0,0); }
+
+function mostrarLista(){
+  CURSO = null; pintarHeader(); mostrar('evLista');
+  $('logoLista').innerHTML = logo(70);
+  $('evCards').innerHTML = PORT.cursos.length ? PORT.cursos.map(c =>
+    '<button class="card" data-id="'+esc(c.id)+'"><b>'+esc(c.nombre)+'</b><span>'+esc(c.subtitulo||'')+'</span>'+
+    '<em>'+c.nPreguntas+' preguntas · '+c.aprobacion+'% para aprobar'+(c.horas?' · '+esc(c.horas)+' h':'')+'</em></button>').join('')
+    : '<p class="muted">No hay capacitaciones activas por ahora.</p>';
+  $('evCards').querySelectorAll('.card').forEach(b => b.onclick = () => elegirCurso(b.dataset.id));
+}
+
+function elegirCurso(id){
+  CURSO = PORT.cursos.find(c => c.id === id);
+  if (!CURSO) return mostrarLista();
+  pintarHeader();
+  $('logoBig').innerHTML = logo(80);
+  $('evCurso').textContent = CURSO.nombre;
+  $('evN').textContent = CURSO.nPreguntas; $('evA').textContent = CURSO.aprobacion;
+  $('evPills').innerHTML = '<span class="pill p1">📚 '+CURSO.nPreguntas+' preguntas</span><span class="pill p2">🏆 Aprobación '+CURSO.aprobacion+'%</span>'+
+    (CURSO.horas ? '<span class="pill p3">⏱️ '+esc(CURSO.horas)+' horas de curso</span>' : '');
+  $('evErr').textContent = '';
+  mostrar('evInicio');
+}
+$('bVolverLista').onclick = mostrarLista;
+
+$('fRut').addEventListener('blur', () => {
+  const r = $('fRut').value.replace(/[^0-9kK]/g,'').toUpperCase();
+  if (r.length>1) $('fRut').value = r.slice(0,-1).replace(/\B(?=(\d{3})+(?!\d))/g,'.') + '-' + r.slice(-1);
+});
+
+$('bComenzar').onclick = async () => {
+  $('evErr').textContent = '';
+  DATOS = { nombre:$('fNombre').value.trim(), rut:$('fRut').value.trim(), cargo:$('fCargo').value.trim(), empresa:$('fEmpresa').value.trim() };
+  $('bComenzar').disabled = true; $('bComenzar').textContent = 'Cargando…';
+  try {
+    QS = await run('iniciarEvaluacion', CURSO.id, DATOS.nombre, DATOS.rut);
+    RESP = {}; IDX = 0;
+    mostrar('evPreg'); mostrarPregunta();
+  } catch(e){ $('evErr').textContent = e.message || e; }
+  $('bComenzar').disabled = false; $('bComenzar').textContent = 'Comenzar evaluación →';
+};
+
+function mostrarPregunta(){
+  const q = QS[IDX];
+  $('qNum').textContent = 'Pregunta ' + (IDX+1) + ' de ' + QS.length;
+  $('qBar').style.width = (IDX/QS.length*100) + '%';
+  $('qTxt').textContent = q.pregunta;
+  $('qOpts').innerHTML = q.opciones.map((o,i)=>'<button class="opt'+(RESP[q.id]===o.k?' sel':'')+'" data-k="'+o.k+'">'+'ABCD'[i]+') '+esc(o.t)+'</button>').join('');
+  $('qOpts').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ RESP[q.id]=b.dataset.k; mostrarPregunta(); });
+  $('bAtras').style.visibility = IDX ? 'visible' : 'hidden';
+  $('bSig').disabled = !RESP[q.id];
+  $('bSig').textContent = IDX===QS.length-1 ? 'Enviar respuestas ✓' : 'Siguiente →';
+}
+$('bAtras').onclick = () => { if (IDX) { IDX--; mostrarPregunta(); } };
+$('bSig').onclick = async () => {
+  if (IDX < QS.length-1) { IDX++; mostrarPregunta(); return; }
+  $('bSig').disabled = true; $('bSig').textContent = 'Enviando…';
+  try {
+    const r = await run('enviarEvaluacion', CURSO.id, DATOS, RESP);
+    ULTIMO = r.registro;
+    mostrar('evRes');
+    $('evRes').innerHTML =
+      '<div style="font-size:60px">'+(r.aprobado?'🎉':'📖')+'</div>'+
+      '<div class="muted" style="font-weight:800">'+esc(CURSO.nombre)+'</div>'+
+      '<h1 class="'+(r.aprobado?'ok':'bad')+'" style="margin:4px 0">'+(r.aprobado?'¡APROBADO!':'No aprobado')+'</h1>'+
+      '<div class="big '+(r.aprobado?'ok':'bad')+'">'+r.pct+'%</div>'+
+      '<p>'+r.correctas+' de '+r.total+' respuestas correctas · intento N°'+r.intento+'</p>'+
+      (r.aprobado ? '<button class="btn" id="bMiCert">🎓 Imprimir mi certificado</button>'
+                  : '<p class="muted">Necesitas '+CURSO.aprobacion+'%. Repasa las respuestas y vuelve a intentarlo.</p><button class="btn" id="bReint">Reintentar</button>')+
+      '<button class="btn sec" id="bNuevo">Nueva persona</button>'+
+      '<div class="rev"><h3>Revisión</h3>'+r.revision.map((x,i)=>'<div class="'+(x.ok?'s':'n')+'"><b>'+(i+1)+'. '+esc(x.pregunta)+'</b><br>'+
+        (x.ok?'✓ '+esc(x.correcta):'✗ Tu respuesta: '+esc(x.tuRespuesta)+'<br>✓ Correcta: '+esc(x.correcta))+'</div>').join('')+'</div>';
+    if ($('bMiCert')) $('bMiCert').onclick = () => imprimirCert(ULTIMO, CURSO);
+    if ($('bReint')) $('bReint').onclick = () => mostrar('evInicio');
+    $('bNuevo').onclick = () => { ['fNombre','fRut','fCargo'].forEach(i=>$(i).value=''); mostrar('evInicio'); };
+  } catch(e){ alert('Error al enviar: '+(e.message||e)); $('bSig').disabled=false; $('bSig').textContent='Enviar respuestas ✓'; }
+};
+
+/* ---------- Registro ---------- */
+async function cargarRegistros(){
+  $('rBody').innerHTML = '<tr><td colspan="8" class="muted">Cargando…</td></tr>';
+  try {
+    const d = await run('getRegistros', PIN);
+    REGS = d.filas; RCURSOS = d.cursos;
+    const prevR = $('rCurso').value, prevI = $('iCurso').value;
+    $('rCurso').innerHTML = '<option value="">Todas las capacitaciones</option>' + RCURSOS.map(c=>'<option value="'+esc(c.id)+'">'+esc(c.nombre)+'</option>').join('');
+    $('iCurso').innerHTML = RCURSOS.map(c=>'<option value="'+esc(c.id)+'">'+esc(c.nombre)+'</option>').join('') || '<option value="">(sin capacitaciones)</option>';
+    if (prevR) $('rCurso').value = prevR; if (prevI) $('iCurso').value = prevI;
+    $('rPlanilla').style.display = d.url ? 'inline-block' : 'none'; if (d.url) $('rPlanilla').href = d.url;
+    pintarRegistros(); llenarPersonas();
+  } catch(e){ errAdmin(e); }
+}
+function pintarRegistros(){
+  const cid = $('rCurso').value, q = $('rBuscar').value.toLowerCase(), f = $('rFiltro').value;
+  const base = REGS.filter(r => !cid || r.curso===cid);
+  const rows = base.filter(r => (!f || r.resultado===f) && (!q || (r.nombre+' '+r.rut).toLowerCase().includes(q)));
+  const aprob = new Set(base.filter(r=>r.resultado==='APROBADO').map(r=>r.curso+'|'+r.rut));
+  const personas = new Set(base.map(r=>r.curso+'|'+r.rut));
+  const prom = base.length ? Math.round(base.reduce((a,r)=>a+Number(r.pct),0)/base.length) : 0;
+  $('rStats').innerHTML =
+    '<div class="stat"><b>'+base.length+'</b>Evaluaciones</div>'+
+    '<div class="stat"><b>'+personas.size+'</b>Participantes</div>'+
+    '<div class="stat"><b class="ok">'+aprob.size+'</b>Aprobados</div>'+
+    '<div class="stat"><b>'+prom+'%</b>Promedio</div>';
+  $('rBody').innerHTML = rows.map(r=>'<tr><td>'+esc(r.fecha)+'</td><td>'+esc(r.cursoNombre)+'</td><td>'+esc(r.nombre)+'</td><td>'+esc(r.rut)+'</td><td>'+esc(r.cargo)+'</td><td>'+esc(r.pct)+'</td><td><span class="tag '+(r.resultado==='APROBADO'?'A':'R')+'">'+esc(r.resultado)+'</span></td><td>'+esc(r.intento)+'</td></tr>').join('') || '<tr><td colspan="8" class="muted">Sin registros</td></tr>';
+}
+$('rBuscar').oninput = pintarRegistros; $('rFiltro').onchange = pintarRegistros; $('rCurso').onchange = pintarRegistros; $('rRefrescar').onclick = cargarRegistros;
+$('rCsv').onclick = () => {
+  const cid = $('rCurso').value;
+  const enc = ['Fecha','Capacitación','Nombre','RUT','Cargo','Empresa','Puntaje','Correctas','Total','Resultado','Intento'];
+  const lin = [enc.join(';')].concat(REGS.filter(r=>!cid||r.curso===cid).map(r=>[r.fecha,r.cursoNombre,r.nombre,r.rut,r.cargo,r.empresa,r.pct,r.correctas,r.total,r.resultado,r.intento].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';')));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿'+lin.join('\n')],{type:'text/csv'}));
+  a.download = 'registro_capacitaciones'+(cid?'_'+cid:'')+'.csv'; a.click();
+};
+
+/* ---------- Imprimir ---------- */
+function cursoReg(id){ return RCURSOS.find(c=>c.id===id) || PORT.cursos.find(c=>c.id===id) || {}; }
+function aprobadosUltimos(cid){
+  const m = {};
+  REGS.filter(r=>r.curso===cid && r.resultado==='APROBADO').forEach(r=>{ if(!m[r.rut]) m[r.rut]=r; }); // REGS: más nuevo primero
+  return Object.values(m);
+}
+function llenarPersonas(){
+  $('iPersona').innerHTML = aprobadosUltimos($('iCurso').value).sort((a,b)=>String(a.nombre).localeCompare(b.nombre))
+    .map(r=>'<option value="'+r.fila+'">'+esc(r.nombre)+' · '+esc(r.rut)+' · '+esc(r.fecha.slice(0,10))+'</option>').join('') || '<option value="">(sin aprobados)</option>';
+}
+$('iCurso').onchange = llenarPersonas;
+$('iCert').onclick = () => {
+  const r = REGS.find(x=>String(x.fila)===$('iPersona').value);
+  if (!r) return toast('Selecciona una persona');
+  imprimirCert({ nombre:r.nombre, rut:r.rut, cargo:r.cargo, empresa:r.empresa, pct:r.pct, fecha:r.fecha.slice(0,10) }, cursoReg(r.curso));
+};
+function imprimir(html){ $('print').innerHTML = html; setTimeout(()=>window.print(), 400); }
+function imprimirCert(r, c){
+  const emp = r.empresa || PORT.cfg.empresa || '';
+  imprimir(
+    '<div class="cert">'+logo(70)+
+    '<h2>CERTIFICADO</h2><div style="color:#6B6B6B;font-weight:700">DE APROBACIÓN DE CAPACITACIÓN</div>'+
+    '<p style="margin-top:30px">'+esc(PORT.cfg.empresa || emp)+' certifica que</p>'+
+    '<div class="nom">'+esc(r.nombre)+'</div>'+
+    '<p>RUT <b>'+esc(r.rut)+'</b>'+(r.cargo?' · '+esc(r.cargo):'')+'</p>'+
+    '<p>aprobó la capacitación <b>'+esc(c.nombre)+'</b>'+(c.subtitulo?'<br>'+esc(c.subtitulo):'')+
+    (c.horas?'<br>con una duración de <b>'+esc(c.horas)+' horas</b>':'')+' y una calificación de <b>'+esc(r.pct)+'%</b>.</p>'+
+    '<p>Fecha de aprobación: <b>'+esc(r.fecha)+'</b>'+(c.codigo?' · Registro '+esc(c.codigo):'')+'</p>'+
+    '<div class="firmas"><div>'+(esc(c.relator)||'&nbsp;')+'<br>'+esc(c.cargoRelator||'Relator')+'</div><div>'+esc(r.nombre)+'<br>Firma trabajador/a</div></div>'+
+    '</div>');
+}
+$('iActa').onclick = () => {
+  const c = cursoReg($('iCurso').value);
+  if (!c.id) return toast('Selecciona una capacitación');
+  const d = $('iDesde').value, h = $('iHasta').value;
+  let rows = $('iIncluir').value==='A' ? aprobadosUltimos(c.id) : REGS.filter(r=>r.curso===c.id);
+  rows = rows.filter(r => (!d || r.fechaIso>=d) && (!h || r.fechaIso<=h)).sort((a,b)=>String(a.nombre).localeCompare(b.nombre));
+  if (!rows.length) return toast('No hay registros en ese rango');
+  const fmt = s => s ? s.split('-').reverse().join('/') : '—';
+  imprimir(
+    '<div class="acta"><div style="display:flex;justify-content:space-between;align-items:center">'+logo(50)+
+    '<div style="text-align:right"><b>REGISTRO DE CAPACITACIÓN</b><br>'+esc(c.codigo||'')+'</div></div>'+
+    '<table style="margin:14px 0"><tr><th>Capacitación</th><td colspan="3">'+esc(c.nombre)+(c.subtitulo?' — '+esc(c.subtitulo):'')+'</td></tr>'+
+    '<tr><th>Empresa</th><td>'+esc(PORT.cfg.empresa||'')+'</td><th>Duración</th><td>'+(c.horas?esc(c.horas)+' horas':'—')+'</td></tr>'+
+    '<tr><th>Relator</th><td>'+esc(c.relator||'')+'</td><th>Período</th><td>'+fmt(d)+' al '+fmt(h)+'</td></tr>'+
+    '<tr><th>Área responsable</th><td colspan="3">'+esc(c.area||'')+'</td></tr></table>'+
+    '<table><thead><tr><th>N°</th><th>Nombre</th><th>RUT</th><th>Cargo / Área</th><th>Fecha</th><th>%</th><th>Resultado</th><th>Firma</th></tr></thead><tbody>'+
+    rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(r.nombre)+'</td><td>'+esc(r.rut)+'</td><td>'+esc(r.cargo)+'</td><td>'+esc(r.fecha.slice(0,10))+'</td><td>'+esc(r.pct)+'</td><td>'+esc(r.resultado)+'</td><td class="f"></td></tr>').join('')+
+    '</tbody></table>'+
+    '<div class="firmas"><div>'+(esc(c.relator)||'&nbsp;')+'<br>'+esc(c.cargoRelator||'Relator')+'</div><div>&nbsp;<br>Jefatura / Gerencia</div></div></div>');
+};
+
+/* ---------- Editar: lista ---------- */
+function mostrarEd(id){ ['edLista','edCurso'].forEach(x=>$(x).style.display = x===id ? 'block' : 'none'); window.scrollTo(0,0); }
+
+async function cargarAdmin(){
+  $('edBody').innerHTML = '<tr><td colspan="5" class="muted">Cargando…</td></tr>';
+  mostrarEd('edLista');
+  try { ADM = await run('getAdmin', PIN); pintarEdLista(); } catch(e){ errAdmin(e); }
+}
+function pintarEdLista(){
+  const cursos = ADM.cursos.slice().sort((a,b)=>(b.editable-a.editable) || a.nombre.localeCompare(b.nombre));
+  $('edBody').innerHTML = cursos.map(c=>'<tr><td><b>'+esc(c.nombre)+'</b><br><span class="muted">'+esc(c.subtitulo||'')+'</span></td><td>'+esc(c.area)+'</td>'+
+    '<td><span class="tag '+(c.activo?'A':'G')+'">'+(c.activo?'Activa':'Inactiva')+'</span></td><td>'+c.nBanco+'</td>'+
+    '<td style="white-space:nowrap">'+(c.editable?'<button class="mini" data-ed="'+esc(c.id)+'">Editar</button>':'<span class="muted">Solo lectura</span>')+'</td></tr>').join('');
+  $('edBody').querySelectorAll('[data-ed]').forEach(b=>b.onclick=()=>editarCurso(b.dataset.ed));
+  const admin = USER && USER.rol === 'ADMIN';
+  $('edAdmin').style.display = admin ? 'block' : 'none';
+  if (admin) {
+    $('dlAreas').innerHTML = ADM.areas.map(a=>'<option value="'+esc(a)+'">').join('');
+    pintarUsuarios();
+    $('gEmpresa').value = ADM.cfg.empresa || ''; $('gLogos').value = ADM.cfg.logoUrl || ''; $('gPagina').value = ADM.cfg.paginaUrl || '';
+  }
+}
+$('edNuevo').onclick = () => editarCurso('');
+
+function pintarUsuarios(){
+  $('uBody').innerHTML = ADM.usuarios.map((u,i)=>'<tr>'+
+    '<td><input data-u="'+i+'" data-f="nombre" value="'+esc(u.nombre)+'" placeholder="Nombre"></td>'+
+    '<td><input data-u="'+i+'" data-f="area" value="'+esc(u.area)+'" list="dlAreas" placeholder="Área"></td>'+
+    '<td><input data-u="'+i+'" data-f="pin" value="'+esc(u.pin)+'" placeholder="PIN" style="width:110px"></td>'+
+    '<td><select data-u="'+i+'" data-f="rol"><option'+(u.rol==='EDITOR'?' selected':'')+'>EDITOR</option><option'+(u.rol==='ADMIN'?' selected':'')+'>ADMIN</option></select></td>'+
+    '<td><button class="x" data-del="'+i+'">✕</button></td></tr>').join('');
+  $('uBody').querySelectorAll('[data-u]').forEach(el=>el.oninput=el.onchange=()=>ADM.usuarios[el.dataset.u][el.dataset.f]=el.value);
+  $('uBody').querySelectorAll('[data-del]').forEach(el=>el.onclick=()=>{ ADM.usuarios.splice(el.dataset.del,1); pintarUsuarios(); });
+}
+$('uAgregar').onclick = () => { ADM.usuarios.push({nombre:'',area:'',pin:'',rol:'EDITOR'}); pintarUsuarios(); };
+$('uGuardar').onclick = async () => {
+  try {
+    await run('guardarUsuarios', PIN, ADM.usuarios);
+    if (!ADM.usuarios.some(u=>u.pin===PIN)) { toast('Usuarios guardados. Tu PIN cambió: vuelve a entrar.'); return salir(); }
+    toast('Usuarios guardados ✓');
+  } catch(e){ errAdmin(e); }
+};
+$('gGuardar').onclick = async () => {
+  try {
+    await run('guardarConfig', PIN, { EMPRESA:$('gEmpresa').value, LOGO_URL:$('gLogos').value, PAGINA_URL:$('gPagina').value });
+    await refrescarPortada(); toast('Configuración guardada ✓');
+  } catch(e){ errAdmin(e); }
+};
+
+/* ---------- Editar: capacitación ---------- */
+const CAMPOS_CURSO = [['nombre','Nombre de la capacitación'],['subtitulo','Descripción / a quién va dirigida'],['codigo','Código de registro (ej: RACV-29)'],
+  ['horas','Duración (horas)'],['aprobacion','% de aprobación'],['nPreguntas','N° de preguntas por evaluación'],['relator','Relator (sale en el certificado)'],['cargoRelator','Cargo del relator']];
+
+async function editarCurso(id){
+  try {
+    if (id) { const d = await run('getCurso', PIN, id); ED = d.curso; PREGS = d.preguntas; }
+    else { ED = { id:'', nombre:'', subtitulo:'', codigo:'', area:USER.area, horas:'', aprobacion:70, nPreguntas:10, relator:'', cargoRelator:USER.area, activo:false }; PREGS = []; }
+    pintarEdCurso(); mostrarEd('edCurso');
+  } catch(e){ errAdmin(e); }
+}
+function pintarEdCurso(){
+  $('edTitulo').textContent = ED.id ? ED.nombre : 'Nueva capacitación';
+  const admin = USER.rol === 'ADMIN';
+  const areas = Array.from(new Set((ADM ? ADM.areas : []).concat([ED.area]))).filter(Boolean);
+  $('edCampos').innerHTML = CAMPOS_CURSO.map(([k,t])=>'<label>'+t+'</label><input data-c="'+k+'" value="'+esc(ED[k])+'"'+(['aprobacion','nPreguntas'].includes(k)?' type="number" min="1"':'')+'>').join('')+
+    '<label>Área responsable</label>'+(admin
+      ? '<select data-c="area">'+areas.map(a=>'<option'+(a===ED.area?' selected':'')+'>'+esc(a)+'</option>').join('')+'</select>'
+      : '<input value="'+esc(ED.area)+'" disabled>');
+  $('edCampos').querySelectorAll('[data-c]').forEach(el=>el.oninput=el.onchange=()=>ED[el.dataset.c]=el.value);
+  $('edActivo').checked = !!ED.activo;
+  if (ED.id) {
+    $('edQR').style.display = 'block';
+    const link = linkCurso(ED.id);
+    $('qrLink').textContent = link;
+    qrEn($('qrDiv'), link, 150);
+    $('qrAviso').textContent = ED.activo ? '' : '⚠️ La capacitación está inactiva: el QR no mostrará la evaluación hasta activarla.';
+  } else $('edQR').style.display = 'none';
+  pintarPregs();
+}
+$('edActivo').onchange = () => ED.activo = $('edActivo').checked;
+$('edVolver').onclick = cargarAdmin;
+
+function pintarPregs(){
+  $('edConteo').textContent = '· ' + PREGS.length + ' preguntas, ' + PREGS.filter(p=>p.activa!==false).length + ' activas';
+  $('ePregs').innerHTML = PREGS.map((p,i)=>
+    '<div class="qedit'+(p[p.correcta]?'':' falta')+'"><div class="h"><span>Pregunta '+(i+1)+(p[p.correcta]?'':' — ⚠️ marca la correcta')+'</span><span>'+
+    '<label style="display:inline;margin:0 12px 0 0;font-weight:700"><input type="checkbox" style="width:auto" data-i="'+i+'" data-f="activa"'+(p.activa!==false?' checked':'')+'> Activa</label>'+
+    '<button class="x" data-del="'+i+'">Eliminar</button></span></div>'+
+    '<textarea data-i="'+i+'" data-f="pregunta">'+esc(p.pregunta)+'</textarea>'+
+    ['A','B','C','D'].map(k=>'<div class="alt"><input type="radio" name="c'+i+'" data-i="'+i+'" data-c="'+k+'"'+(p.correcta===k?' checked':'')+' title="Marcar como correcta">'+
+      '<input data-i="'+i+'" data-f="'+k+'" placeholder="Alternativa '+k+(k>'B'?' (opcional)':'')+'" value="'+esc(p[k])+'"></div>').join('')+
+    '</div>').join('') || '<p class="muted">Aún no hay preguntas. Pégalas arriba o agrégalas una por una.</p>';
+  $('ePregs').querySelectorAll('[data-f]').forEach(el=>el.oninput=el.onchange=()=>{ const p=PREGS[el.dataset.i]; p[el.dataset.f] = el.type==='checkbox'?el.checked:el.value; });
+  $('ePregs').querySelectorAll('[data-c]').forEach(el=>el.onchange=()=>{ PREGS[el.dataset.i].correcta=el.dataset.c; pintarPregs(); });
+  $('ePregs').querySelectorAll('[data-del]').forEach(el=>el.onclick=()=>{ if(confirm('¿Eliminar pregunta '+(+el.dataset.del+1)+'?')){ PREGS.splice(el.dataset.del,1); pintarPregs(); } });
+}
+$('eAgregar').onclick = () => { PREGS.push({pregunta:'',A:'',B:'',C:'',D:'',correcta:'',activa:true}); pintarPregs(); $('ePregs').lastChild.scrollIntoView({behavior:'smooth'}); };
+
+// Convierte texto pegado (Word/correo) o filas de Excel en preguntas
+function parsePreguntas(txt){
+  const lines = txt.split(/\r?\n/).map(l=>l.replace(/ /g,' ').trim()).filter(Boolean);
+  if (lines.length && lines.every(l=>l.split('\t').length>=4)) {
+    return lines.map(l=>{ const c=l.split('\t').map(s=>s.trim()); const last=(c[c.length-1]||'').toUpperCase().charAt(0);
+      const alts=c.slice(1, /^[ABCD]$/.test(last)?-1:undefined);
+      return { pregunta:c[0], A:alts[0]||'', B:alts[1]||'', C:alts[2]||'', D:alts[3]||'', correcta:/^[ABCD]$/.test(last)?last:'', activa:true }; })
+      .filter(p=>p.pregunta && !/^pregunta$/i.test(p.pregunta));
+  }
+  const out = []; let cur = null;
+  for (const l of lines) {
+    const resp = l.match(/^(respuesta|correcta|resp\.?)\s*(correcta)?\s*[:=\-]\s*([a-dA-D])\b/i);
+    const alt = l.match(/^[\(\[]?([a-dA-D])[\)\.\-:\]]\s*(.+)$/);
+    if (resp && cur) { cur.correcta = resp[3].toUpperCase(); continue; }
+    if (alt && cur) {
+      let t = alt[2], ok = false;
+      if (/^\*|\*$|\(correcta\)|✓|✔/i.test(t)) { ok = true; t = t.replace(/^\*\s*|\s*\*$|\s*\(correcta\)\s*|\s*[✓✔]\s*/gi,'').trim(); }
+      const k = alt[1].toUpperCase(); cur[k] = t; if (ok) cur.correcta = k;
+      continue;
+    }
+    if (cur) out.push(cur);
+    cur = { pregunta:l.replace(/^(pregunta\s*)?\d+\s*[\.\)\-:]\s*/i,''), A:'', B:'', C:'', D:'', correcta:'', activa:true };
+  }
+  if (cur) out.push(cur);
+  return out.filter(p=>p.A && p.B);
+}
+$('edImportar').onclick = () => {
+  const nuevas = parsePreguntas($('edPegar').value);
+  if (!nuevas.length) return alert('No reconocí preguntas. Revisa el formato del ejemplo: pregunta en una línea y alternativas a) b) c) en las siguientes.');
+  PREGS = PREGS.concat(nuevas); $('edPegar').value = ''; pintarPregs();
+  const sin = nuevas.filter(p=>!p.correcta).length;
+  toast(nuevas.length+' preguntas agregadas'+(sin?' · '+sin+' sin respuesta correcta (marcadas en rojo)':''));
+};
+
+$('edGuardar').onclick = async () => {
+  if (!String(ED.nombre||'').trim()) return alert('Falta el nombre de la capacitación');
+  ED.activo = $('edActivo').checked;
+  $('edGuardar').disabled = true; $('edGuardar').textContent = 'Guardando…';
+  try {
+    const r = await run('guardarCurso', PIN, ED, PREGS);
+    ED.id = r.id; ED.activo = r.activo;
+    if (r.aviso) alert(r.aviso);
+    await refrescarPortada();
+    ADM = await run('getAdmin', PIN);
+    pintarEdCurso(); toast('Capacitación guardada ✓');
+  } catch(e){ errAdmin(e); }
+  $('edGuardar').disabled = false; $('edGuardar').textContent = '💾 Guardar capacitación';
+};
+
+$('qrCopiar').onclick = async () => {
+  const t = $('qrLink').textContent;
+  try { await navigator.clipboard.writeText(t); toast('Link copiado ✓'); }
+  catch(e){ prompt('Copia el link:', t); }
+};
+$('qrAfiche').onclick = () => {
+  const tmp = document.createElement('div');
+  qrEn(tmp, linkCurso(ED.id), 600);
+  setTimeout(() => {
+    const cv = tmp.querySelector('canvas'), im = tmp.querySelector('img');
+    const src = cv ? cv.toDataURL('image/png') : (im ? im.src : '');
+    const n = Math.min(Number(ED.nPreguntas)||10, PREGS.filter(p=>p.activa!==false).length);
+    imprimir('<div class="afiche">'+logo(90)+
+      '<div class="banda">'+esc(ED.nombre)+(ED.horas?' · '+esc(ED.horas)+' horas':'')+'</div>'+
+      '<h1>¡Pon a prueba lo aprendido!</h1><p>Escanea el código con la cámara de tu celular</p>'+
+      '<img class="qr" src="'+src+'">'+
+      '<p style="color:#7B1E3A;font-weight:800">'+n+' preguntas · Aprobación '+esc(ED.aprobacion)+'%</p><p>Ten a mano tu RUT</p></div>');
+  }, 300);
+};
+
+/* ---------- Inicio ---------- */
+async function refrescarPortada(){ PORT = await run('getPortada'); pintarHeader(); }
+(async () => {
+  try {
+    await refrescarPortada();
+    const id = await getParam('curso');
+    if (id && PORT.cursos.some(c=>c.id===id)) elegirCurso(id); else mostrarLista();
+  } catch(e){ $('evCards').innerHTML = '<p class="err">No se pudo cargar: '+esc(e.message||e)+'</p>'; }
+})();
+</script>
+</body>
+</html>
